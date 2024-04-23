@@ -1,0 +1,43 @@
+{% extends "accounts/base.html" %}
+{% load static %}
+
+{% block title %}Login | Spotify{% endblock title %}
+
+{% block scripts %}
+    <script src="{% static "scripts/login.js" %}" defer></script>
+{% endblock scripts %}
+
+{% block body %}
+
+<style>
+    .hide{
+        display: none;
+    }
+</style>
+
+
+    <div class="container">
+        <div class="form-box">
+            <h1>Log in to Spotify</h1>
+            <form class="login" action="" method="post">
+                {% csrf_token %}
+                <div class="input-box">
+                    <label for="">Username</label>
+                    <input id="username" name="username" type="text" placeholder="Username">
+                </div>
+                <div class="input-box">
+                    <label for="">Password</label>
+                    <input id="password" name="password" type="password" placeholder="Password">
+                </div>
+                <p style="color: red;" class="error-field hide"></p>
+                {% if invalid %}
+                    <p style="color: red;">Username or Password incorrect!</p>
+                {% endif %}
+                <button type="submit">Log In</button>
+            </form>
+            <p>Don't have an account?  <a href="{% url "signup" %}"> Sign up for Spotify</a></p>
+        </div>
+    </div>
+
+
+{% endblock body %}

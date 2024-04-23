@@ -1,0 +1,57 @@
+{% extends "accounts/base.html" %}
+
+{% load static %}
+
+{% block title %}Signup | Spotify{% endblock title %}
+
+{% block scripts %}
+    <script src="{% static "scripts/signup.js" %}" defer></script>
+{% endblock scripts %}
+
+{% block body %}
+
+<style>
+    .hide{
+        display: none;
+    }
+</style>
+
+    <div class="container">
+        <div class="form-box">
+            <h1>Sign up to start listening</h1>
+            {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="input-box">
+                    <label for="name">Name</label>
+                    <input type="text" placeholder="Name" id="name" name="name" value="{{ name }}">
+                </div>
+                <div class="input-box">
+                    <label for="email">Email</label>
+                    <input type="text" placeholder="Email" id="email" name="email" value="{{ email }}">
+                </div>
+                <div class="input-box">
+                    <label for="username">Username</label>
+                    <input type="text" placeholder="Username" id="username" name="username" value="{{ username }}">
+                </div>
+                <div class="input-box">
+                    <label for="password1">Password</label>
+                    <input type="password" placeholder="Password" id="password1" name="password1">
+                </div>
+                <div class="input-box">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" placeholder="Confirm Password" id="password2" name="password2">
+                </div>
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+                <p style="color: red;" class="error-field hide"></p>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account?<a href="{% url "login" %}"> Log in here.</a></p>
+        </div>
+    </div>
+    
+{% endblock body %}

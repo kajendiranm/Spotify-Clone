@@ -1,0 +1,86 @@
+{% extends "songs/base.html" %}
+
+{% load static %}
+
+{% block title %}Library - Spotify{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "styles/playlist.css" %}">
+    <link rel="stylesheet" href="{% static "styles/home.css" %}">
+{% endblock style %}
+
+{% block script %} 
+<script src="{% static "scripts/home.js" %}" defer></script>
+<script src="{% static "scripts/player.js" %}" defer></script>
+<script src="{% static "scripts/like_dislike_songs.js" %}" defer></script>
+{% endblock script %}
+
+{% block body %}
+
+{% comment %}  {% endcomment %}
+
+<style>
+  .play a{
+    color: black;
+  }
+  .welcome{
+    margin-left: 20px !important;
+  }
+</style>
+
+<div class="spotify-playlists">
+  <h2>Following</h2>
+  <div class="list">
+    {% for artist in artists %}
+      <div class="item">
+        <a href="{% url "playlist" artist.username %}"><img src="{{ artist.username.useraccountmodel.profileImage.url }}" /></a>
+        <div class="play">
+          <a href="{% url "playlist" artist.username %}"><span class="fa fa-play"></span></a>
+        </div>
+        <h4>{{ artist.username.first_name }}</h4>
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<div class="spotify-playlists">
+    <h2>Liked Songs</h2>
+{% for song in songs reversed %}
+
+        <div class="song-box">
+          <input type="hidden" name="song_id" value="{{ song.id }}">
+          <input type="hidden" name="song_authors" value="{% for artist in song.artist.all %} {{ artist.username.first_name }}{% if not forloop.last %},{% endif %} {% endfor %}">
+            <div class="left-side">
+                <div class="num-play">{{ forloop.counter }}</div>
+                <img src="{{ song.thumbnail.url }}" alt="">
+                <p class="song-name">{{ song.name }}</p>
+            </div>
+            <div class="right-side" data-liked="{% if request.user in song.likes.all %}true{% else %}false{% endif %}" data-songId="{{ song.id }}">
+                <span class="fa fas fa-heart {% if request.user in song.likes.all %}liked{% endif %}"></span>
+                <p class="likes {% if request.user in song.likes.all %}liked{% endif %}">{{ song.likes.count }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% comment %}  {% endcomment %}
+
+
+  {% include "includes/player.html" %}
+
+{% comment %}  {% endcomment %}
+
+      </div>
+
+    <script
+      src="https://kit.fontawesome.com/23cecef777.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let songs_list = []
+      {% for song in songs reversed %}
+          songs_list.push({{ song.id }})
+      {% endfor %}
+    </script>
+{% endblock body %}

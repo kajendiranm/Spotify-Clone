@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Signika", sans-serif;
+    font-weight: 600;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "GRAD" 0;
+}
+body{
+    background-color: #272727;
+    box-sizing: border-box;
+}
+header{
+    background-color: #0c0c0c;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.logo{
+    height: 40px;
+    margin-left: 30px;
+}
+.container{
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+}
+.form-box{
+    width: 45%;
+    margin-top: 8px;
+    background-color: #0c0c0c;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    padding: 15px;
+    gap: 20px;
+}
+.form-box h1{
+    font-size: 46px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+}
+.input-box{
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 3px;
+}
+.input-box input{
+    height: 40px;
+    width: 95%;
+    font-size: 16px;
+    background-color: black;
+    outline: none;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+.input-box input:focus{
+    border: .5px solid white;
+}
+button{
+    width: 95%;
+    height: 48px;
+    margin: 0 auto;
+    padding: 8px 32px;
+    font-size: 22px;
+    background-color: #1FDF54;
+    color: black;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+.form-box p{
+    color: gray;
+    font-size: 16px;
+}
+.form-box a{
+    color: white;
+    margin-left: 2px;
+}
+.form-box a:hover{
+    color: #1FDF54;
+}

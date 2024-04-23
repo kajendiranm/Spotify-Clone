@@ -1,0 +1,104 @@
+{% extends "songs/base.html" %}
+
+{% load static %}
+
+{% block title %}Home - Spotify{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "styles/playlist.css" %}">
+    <link rel="stylesheet" href="{% static "styles/home.css" %}">
+{% endblock style %}
+
+{% block script %} 
+<script src="{% static "scripts/home.js" %}" defer></script>
+<script src="{% static "scripts/player.js" %}" defer></script>
+{% endblock script %}
+
+{% block body %}
+
+{% comment %}  {% endcomment %}
+
+<style>
+  .play a{
+    color: black;
+  }
+  .welcome{
+    margin-left: 20px !important;
+  }
+</style>
+
+<h1 class="welcome" style="color: white; padding: 10px;">Welcome {{ request.user.first_name }}!</h1>
+<div class="spotify-playlists">
+  <h2>Kollywood Rockers</h2>
+  <div class="list">
+    {% for artist in artists %}
+      <div class="item">
+        <a href="{% url "playlist" artist.username %}"><img src="{{ artist.username.useraccountmodel.profileImage.url }}" /></a>
+        <div class="play">
+          <a href="{% url "playlist" artist.username %}"><span class="fa fa-play"></span></a>
+        </div>
+        <h4>{{ artist.username.first_name }}</h4>
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<div class="spotify-playlists">
+  <h2>Popular Songs</h2>
+  <div class="list song-list">
+    {% for song in songs %}
+    <div class="item">
+        <input type="hidden" name="" id="" data-song_id="{{ song.id }}">
+        <input type="hidden" name="song_authors" value="{% for artist in song.artist.all %} {{ artist.username.first_name }}{% if not forloop.last %},{% endif %} {% endfor %}">
+        <img src="{{ song.thumbnail.url }}" />
+        <div class="play">
+          <span class="fa fa-play"></span>
+        </div>
+        <h4>{{ song.name }}</h4>
+        <p>{% for artist in song.artist.all %} {{ artist.username.first_name }}{% if not forloop.last %},{% endif %} {% endfor %}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="spotify-playlists">
+  <h2>Popular Movies</h2>
+  <div class="list song-list">
+    {% for movie in movies %}
+    <div class="item">  
+        <input type="hidden" name="" id="" data-song_id="{{ song.id }}">
+        <input type="hidden" name="song_authors" value="{% for artist in song.artist.all %} {{ artist.username.first_name }}{% if not forloop.last %},{% endif %} {% endfor %}">
+        <a href="{% url "movie" movie.id %}"><img src="{{ movie.thumbnail.url }}" /></a>
+        <div class="play">
+          <a href="{% url "movie" movie.id %}"><span class="fa fa-play"></span></a>
+        </div>
+        <h4>{{ movie.name }}</h4>
+        <p>{{ movie.director }}</p>
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% comment %}  {% endcomment %}
+
+
+  {% include "includes/player.html" %}
+
+{% comment %}  {% endcomment %}
+
+        {% comment %} <hr> {% endcomment %}
+      </div>
+
+    <script
+      src="https://kit.fontawesome.com/23cecef777.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let songs_list = []
+      {% for song in songs %}
+          songs_list.push({{ song.id }})
+      {% endfor %}
+    </script>
+{% endblock body %}

@@ -1,0 +1,128 @@
+{% extends "songs/base.html" %}
+
+{% load static %}
+
+{% block title %}Spotify - {{ request.user.first_name }}{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "styles/playlist.css" %}">
+    <link rel="stylesheet" href="{% static "styles/home.css" %}">
+{% endblock style %}
+
+{% block script %} 
+<script src="{% static "scripts/home.js" %}" defer></script>
+<script src="{% static "scripts/player.js" %}" defer></script>
+{% endblock script %}
+
+{% block body %}
+
+<style>
+  img{
+    border-radius: 50%;
+    
+  }
+  .artist{
+    position: relative;
+  }
+  .mark{
+    position: absolute;
+    top: 50px;
+    right : 500px;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .edit-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  label{
+    color: white;
+  }
+  input{
+    background: transparent;
+    color: white;
+    border: 1px solid gray;
+    height: 30px;
+    width: 300px;
+    font-size: 20px;
+    padding: 5px;
+  }
+  .upload{
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .cancel{
+    height: 30px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .hide{
+    display: none;
+  }
+  .warning{
+    padding: 10px 0;
+  }
+  .warning p {
+    color: red;
+    font-size: 18px;
+    text-align: center;
+  }
+</style>
+
+{% if commonAccount %}<div class="warning"><p>You can't make changes in this account! Kindly signup a new account, then feel the full experience!</p></div>{% endif %}
+<div class="playlist-container">
+  <div class="artist">
+      <img src="{{ request.user.useraccountmodel.profileImage.url }}" alt="">
+      <div class="content">
+          <h2 class="name">{{ request.user.first_name }}</h2>
+          <p class="followers-count">{{ request.user.following.count }} Following &nbsp;&nbsp;{% if creator %}{{request.user.artistmodel.followers.all.count}} Followers {% endif %}</p>
+      </div>
+      <div class="mark">Edit</div>
+  </div>
+</div>
+
+<div class="edit-box">
+  <form action="" method="post" enctype="multipart/form-data"  class="hide">
+    {% csrf_token %}
+    <div class="in edit-name">
+      <label for="name-upload">Name: </label>
+      <input name="name" id="name-upload" type="text" value="{{ request.user.first_name }}">
+    </div>
+    <div class="in edit-image">
+      <label for="image-upload">Profile Image: </label>     
+      <input name="image" type="file" id="image-upload" accept="image/*">
+    </div>
+    <button class="upload" type="submit">Change</button>
+    <button class="cancel" type="button">Cancel</button>
+  </form>
+</div>
+
+    <script
+      src="https://kit.fontawesome.com/23cecef777.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const editBtn = document.querySelector('.mark')
+      const form = document.querySelector('form')
+      const uploadBtn = document.querySelector('.upload')
+      const cancelBtn = document.querySelector('.cancel')
+      const nameEL = document.querySelector('#name-upload')
+
+      editBtn.addEventListener('click', () => {
+        form.classList.remove('hide')
+        nameEL.focus()
+      })
+      cancelBtn.addEventListener('click', () => {
+        form.classList.add('hide')
+      })
+    </script>
+{% endblock body %}

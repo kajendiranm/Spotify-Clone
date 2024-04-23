@@ -1,0 +1,76 @@
+{% extends "songs/base.html" %}
+
+{% load static %}
+
+{% block title %}{{ artist.username.first_name }} - Spotify{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "styles/home.css" %}">
+    <link rel="stylesheet" href="{% static "styles/playlist.css" %}">
+{% endblock style %}
+
+{% block script %}  
+  <script src="{% static "scripts/player.js" %}" defer></script>
+  <script src="{% static "scripts/playlist-apis.js" %}" defer></script>
+  <script src="{% static "scripts/like_dislike_songs.js" %}" defer></script>
+{% endblock script %}
+
+
+{% block body %}
+
+      <span class="username" data-username="{{  artist.username }}"></span>
+      <div class="playlist-container">
+        <div class="artist">
+            <img src="{{ artist.username.useraccountmodel.profileImage.url}}" alt="">
+            <div class="content">
+                <h1 class="name">{{ artist.username.first_name }}</h1>
+                <p class="followers-count">{{ artist.followers.count }} Followers</p>
+            </div>
+        </div>
+    </div>
+    <div class="bar">
+      <span class="fa fa-play large-play-btn"></span>
+      {% if request.user.username != artist.username.username %}
+        <button class="follow-btn" data-status="{% if follow_status %}true{% else %}false{% endif %}">
+          {% if follow_status %}Following{% else %}Follow{% endif %}
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="songs">
+            {% for song in songs %}
+                <div class="song-box">
+                  <input type="hidden" name="song_id" value="{{ song.id }}">
+                  <input type="hidden" name="song_authors" value="{% for artist in song.artist.all %} {{ artist.username.first_name }}{% if not forloop.last %},{% endif %} {% endfor %}">
+                    <div class="left-side">
+                        <div class="num-play">{{ forloop.counter }}</div>
+                        <img src="{{ song.thumbnail.url }}" alt="">
+                        <p class="song-name">{{ song.name }}</p>
+                    </div>
+                    <div class="right-side" data-liked="{% if request.user in song.likes.all %}true{% else %}false{% endif %}" data-songId="{{ song.id }}">
+                        <span class="fa fas fa-heart {% if request.user in song.likes.all %}liked{% endif %}"></span>
+                        <p class="likes {% if request.user in song.likes.all %}liked{% endif %}">{{ song.likes.count }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+          
+          {% include "includes/player.html" %}
+          
+      </div>
+ 
+    </div> 
+
+    
+
+    <script
+      src="https://kit.fontawesome.com/23cecef777.js"
+      crossorigin="anonymous">
+    </script>
+    <script>
+      let songs_list = []
+      {% for song in songs %}
+          songs_list.push({{ song.id }})
+      {% endfor %}
+    </script>
+{% endblock body %}

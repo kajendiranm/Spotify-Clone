@@ -1,0 +1,215 @@
+.playlist-container{
+    display: flex;
+}
+.artist{
+    height: 250px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+}
+.artist img{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.content .name{
+    color: white;
+    margin-left: 10px;
+    font-size: 60px;
+
+}
+.followers-count{
+    color: white;
+    margin-left: 10px;
+}
+.bar{
+    margin-left: 100px;
+    margin-top: 10px;
+}
+
+.fa-play{
+    padding: 18px;
+    background-color: #1db954;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.follow-btn{
+    background: transparent;
+    min-width: 100px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border: 1px solid gray;
+    padding: 10px 15px;
+    border-radius: 30px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.songs{
+    display: flex;
+    flex-direction: column;
+    margin-left: 80px;
+}
+.song-box{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    cursor: pointer;
+    padding-top: 10px;
+}
+.num-play{
+    color: white;
+    margin-left: 20px;
+}
+.left-side img{
+    height: 75%;
+    border-radius: 7px;
+}
+.song-name, .likes{
+    color: white;
+}
+
+.left-side{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: start;
+}
+.right-side{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+}
+.right-side .fa-heart{
+    color: white ;
+    font-size: 18px;
+    margin-right: 5px;
+}
+.liked{
+    color: red !important;
+}
+
+
+.player-container{
+    background-color: #1d1d1d;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 72px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    z-index: 11;
+}
+.player-container .image img{
+    width: 55px;
+    border-radius: 8px;
+    padding: 5px;
+
+}
+.player-container .details{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 270px;
+    margin-left: 10px;
+}
+.player-container .details .name {
+    color: white;
+    font-size: 14px;
+}
+.player-container .details .artists {
+    color: white;
+    font-size: 12px;
+}
+.icons{
+    color: white;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+.icons svg{
+    height: 25px;
+    width: 25px;
+
+}
+.icons svg:hover{
+    color: rgb(145, 140, 140);
+    cursor: pointer;
+}
+.player{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+.player .progress input{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: gray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#progress::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    background-color: #1db954;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+.progress{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.progress p{
+    color: rgb(158, 156, 156);
+}
+
+
+.volume{
+    width: 270px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#volumeSlider{
+    -webkit-appearance: none;
+    min-width: 130px;
+    height: 4px;
+    background: gray;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+#volumeSlider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    background-color: #1db954;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+.volumeSlider{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.like-icon{
+    color: white;
+    font-size: 100px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
